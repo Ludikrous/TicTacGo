@@ -2,18 +2,35 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/ludikrous/TicTacGo/board"
+	"math/rand"
+	"time"
 )
 
 //===============================================
+const o = 1
+const x = 2
+
+var turnCount = 0
 
 func main() {
-	board := board.New(3)
-	fmt.Println(board)
-	board.SetX(0, 0)
-	board.SetX(1, 1)
-	board.SetX(2, 2)
-	fmt.Println(board)
-	fmt.Println(board.CheckForWinner(0))
+	fmt.Println("Welcome to TicTacGo! Follow the prompts to play.")
+	firstPlayer := chooseOrder()
+	fmt.Println(firstPlayer + " will go first as O")
+
+}
+
+//===============================================
+
+func chooseOrder() (firstPlayer string) {
+	seed := rand.NewSource(time.Now().UnixNano())
+	rng := rand.New(seed)
+	toss := rng.Intn(2)
+
+	switch {
+	case toss == 0:
+		return "Computer"
+	case toss == 1:
+		return "Player"
+	}
+	return "" // this should never happen
 }
