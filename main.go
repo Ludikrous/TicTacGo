@@ -21,10 +21,10 @@ const (
 var turnCount = 0
 
 func main() {
-	fmt.Println("==================================================")
-	fmt.Println(" _______    ______         _____     \n/_  __(_)__/_  __/__ _____/ ___/__  \n / / / / __// / / _ `/ __/ (_ / _ \\ \n/_/ /_/\\__//_/  \\_,_/\\__/\\___/\\___/									   ")
-	fmt.Println("==================================================")
-	fmt.Println("Welcome to TicTacGo! Follow the prompts to play.")
+	fmt.Println("===================================")
+	fmt.Println(" _______    ______         _____     \n/_  __(_)__/_  __/__ _____/ ___/__  \n / / / / __// / / _ `/ __/ (_ / _ \\ \n/_/ /_/\\__//_/  \\_,_/\\__/\\___/\\___/									   \n")
+	fmt.Println("===================================")
+	fmt.Println("Welcome to TicTacGo! Follow the prompts to play.\n\n")
 
 	keepGoing := true
 
@@ -144,13 +144,14 @@ func askForRestart() bool {
 	fmt.Print("\nDo you want to play again? (y/n) ")
 	var response string
 	_, err := fmt.Scanln(&response)
-	fmt.Println(response)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if response == "y" {
+		fmt.Println("\n\n\n")
 		return true
 	} else if response == "n" {
+		fmt.Println("\n\n\n")
 		return false
 	} else {
 		fmt.Println("Please type 'y' or 'n' and then press enter:")
