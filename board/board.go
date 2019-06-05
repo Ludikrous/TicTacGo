@@ -109,7 +109,7 @@ func (board Board) CheckForWinner(player Piece) (bool, error) {
 func (board Board) String() string {
 	var buffer bytes.Buffer
 
-	buffer.WriteString("\n")
+	buffer.WriteString("\nCurrent board:\n")
 	for _, row := range board.board {
 		for _, val := range row {
 			buffer.WriteString(toPiece(val) + " ")

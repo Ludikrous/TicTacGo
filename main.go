@@ -23,13 +23,14 @@ func main() {
 	firstPlayer, player, computer := chooseOrder()
 	fmt.Println(firstPlayer + " will go first as O")
 	board := board.New(3)
+	fmt.Println(board)
 
 	playerDecider := 0
 	if firstPlayer == "Computer" {
 		playerDecider = 1
 	}
 
-	for board.BoardFull() {
+	for !board.BoardFull() {
 		// check for a win
 		if playerDecider%2 == 0 {
 			// make player go
@@ -37,6 +38,7 @@ func main() {
 			playerWon, _ := board.CheckForWinner(player)
 			if playerWon {
 				gameEnded(GEplayerWon)
+				return
 			}
 		} else {
 			//make computer go
@@ -44,12 +46,16 @@ func main() {
 			computerWon, _ := board.CheckForWinner(computer)
 			if computerWon {
 				gameEnded(GEcomputerWon)
+				return
 			}
 		}
+		fmt.Println(board)
+
 		playerDecider++
 		turnCount++
 	}
 	gameEnded(GEdrawGame)
+	return
 }
 
 //===============================================
