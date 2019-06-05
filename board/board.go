@@ -26,7 +26,7 @@ const Draw = 3
 
 // A Board represents a Tic-Tac-Toe board.
 type Board struct {
-	board [][]int
+	board [][]Piece
 }
 
 //===============================================
@@ -34,36 +34,26 @@ type Board struct {
 // New returns a tic tac toe board of specified size
 func New(size int) *Board {
 	toReturn := Board{}
-	toReturn.board = make([][]int, size)
+	toReturn.board = make([][]Piece, size)
 	for i := 0; i < size; i++ {
-		toReturn.board[i] = make([]int, size)
+		toReturn.board[i] = make([]Piece, size)
 	}
 	return &toReturn
 }
 
 // SetX sets the value at row, col on the board to x
-func (board *Board) SetX(row, col int) error {
+func (board *Board) SetX(row, col int, p Piece) error {
 	if board.board[row][col] != 0 {
 		return errors.New("field is not blank")
 	}
 
-	board.board[row][col] = x
-	return nil
-}
-
-// SetO sets the value at row, col on the board to o
-func (board *Board) SetO(row, col int) error {
-	if board.board[row][col] != 0 {
-		return errors.New("field is not blank")
-	}
-
-	board.board[row][col] = o
+	board.board[row][col] = p
 	return nil
 }
 
 // CheckForWinner parses the board to look
 // for a winner
-func (board Board) CheckForWinner(player int) (bool, error) {
+func (board Board) CheckForWinner(player Piece) (bool, error) {
 	// check to make sure player is valid
 	if player != x && player != o {
 		return false, errors.New("invalid input")
@@ -149,13 +139,13 @@ func (board Board) BoardFull() bool {
 	return true
 }
 
-func toPiece(i int) string {
+func toPiece(p Piece) string {
 	switch {
-	case i == blank:
+	case p == blank:
 		return "-"
-	case i == o:
+	case p == o:
 		return "O"
-	case i == x:
+	case p == x:
 		return "X"
 	}
 	return ""
