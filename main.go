@@ -10,6 +10,12 @@ import (
 
 //===============================================
 
+const (
+	GEplayerWon   string = "The player won!"
+	GEcomputerWon string = "The computer won!"
+	GEdrawGame    string = "The game ended in a draw."
+)
+
 var turnCount = 0
 
 func main() {
@@ -17,9 +23,33 @@ func main() {
 	firstPlayer, player, computer := chooseOrder()
 	fmt.Println(firstPlayer + " will go first as O")
 	board := board.New(3)
-	for board.BoardFull() {
-		// todo
+
+	playerDecider := 0
+	if firstPlayer == "Computer" {
+		playerDecider = 1
 	}
+
+	for board.BoardFull() {
+		// check for a win
+		if playerDecider%2 == 0 {
+			// make player go
+			playerTurn(board, player)
+			playerWon, _ := board.CheckForWinner(player)
+			if playerWon {
+				gameEnded(GEplayerWon)
+			}
+		} else {
+			//make computer go
+			computerTurn(board, computer)
+			computerWon, _ := board.CheckForWinner(computer)
+			if computerWon {
+				gameEnded(GEcomputerWon)
+			}
+		}
+		playerDecider++
+		turnCount++
+	}
+	gameEnded(GEdrawGame)
 }
 
 //===============================================
@@ -38,7 +68,7 @@ func chooseOrder() (firstPlayer string, player, computer board.Piece) {
 	return "", board.Blank, board.Blank // this should never happen
 }
 
-func computerTurn(board *board.Board, piece int) {
+func computerTurn(board *board.Board, piece board.Piece) {
 
 }
 
@@ -60,4 +90,9 @@ func playerTurn(board *board.Board, piece board.Piece) {
 
 	// place user's piece in the board
 	board.Set(row, col, piece)
+}
+
+func gameEnded(finalResult string) {
+	fmt.Println(finalResult)
+	fmt.Println("The game lasted " + string(turnCount) + " turns.")
 }
