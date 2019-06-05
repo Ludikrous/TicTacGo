@@ -136,7 +136,7 @@ func (board Board) Print() {
 
 //===============================================
 
-func (board Board) boardFull() bool {
+func (board Board) BoardFull() bool {
 	// iterate through the board to look to an empty spot
 	for _, row := range board.board {
 		for _, value := range row {
