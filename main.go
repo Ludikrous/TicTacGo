@@ -9,14 +9,12 @@ import (
 )
 
 //===============================================
-const o = 1
-const x = 2
 
 var turnCount = 0
 
 func main() {
 	fmt.Println("Welcome to TicTacGo! Follow the prompts to play.")
-	firstPlayer := chooseOrder()
+	firstPlayer, player, computer := chooseOrder()
 	fmt.Println(firstPlayer + " will go first as O")
 	board := board.New(3)
 	for board.BoardFull() {
@@ -26,25 +24,25 @@ func main() {
 
 //===============================================
 
-func chooseOrder() (firstPlayer string) {
+func chooseOrder() (firstPlayer string, player, computer board.Piece) {
 	seed := rand.NewSource(time.Now().UnixNano())
 	rng := rand.New(seed)
 	toss := rng.Intn(2)
 
 	switch {
 	case toss == 0:
-		return "Computer"
+		return "Computer", board.X, board.O
 	case toss == 1:
-		return "Player"
+		return "Player", board.O, board.X
 	}
-	return "" // this should never happen
+	return "", board.Blank, board.Blank // this should never happen
 }
 
-func computerTurn(board *board.Board) {
+func computerTurn(board *board.Board, piece int) {
 
 }
 
-func playerTurn(board *board.Board, piece int) {
+func playerTurn(board *board.Board, piece board.Piece) {
 	// get row from user
 	fmt.Print("Row you wish to place a piece in: ")
 	var row int

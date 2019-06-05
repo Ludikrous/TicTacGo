@@ -42,7 +42,7 @@ func New(size int) *Board {
 }
 
 // SetX sets the value at row, col on the board to x
-func (board *Board) SetX(row, col int, p Piece) error {
+func (board *Board) Set(row, col int, p Piece) error {
 	if board.board[row][col] != 0 {
 		return errors.New("field is not blank")
 	}
