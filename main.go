@@ -49,13 +49,17 @@ func playerTurn(board *board.Board, piece int) {
 	fmt.Print("Row you wish to place a piece in: ")
 	var row int
 	if _, err := fmt.Scanf("%d", &row); err != nil {
-		return
+		fmt.Println("Invalid input! Try again.")
+		playerTurn(board, piece)
 	}
 	// get col from user
 	fmt.Print("Column you wish to place a piece in: ")
 	var col int
 	if _, err := fmt.Scanf("%d", &col); err != nil {
-		return
+		fmt.Println("Invalid input! Try again.")
+		playerTurn(board, piece)
 	}
 
+	// place user's piece in the board
+	board.Set(row, col, piece)
 }
